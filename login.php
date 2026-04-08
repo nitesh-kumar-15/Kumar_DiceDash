@@ -12,10 +12,11 @@ if (!empty($_SESSION['logged_in']) && !empty($_SESSION['user'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $u = isset($_POST['username']) ? trim((string) $_POST['username']) : '';
-        $p = isset($_POST['password']) ? (string) $_POST['password'] : '';
-        $u = $u === '' ? null : $u;
-        $p = $p === '' ? null : $p;
+    if (!dsh_verify_csrf()) {
+        $error = 'Security token invalid. Please refresh and try again.';
+    } else {
+        $u = dsh_get_post_string('username', 24);
+        $p = dsh_get_post_string('password', 72);
 
         if ($u === null || $p === null) {
             $error = 'Please enter username and password.';
@@ -25,9 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['logged_in'] = true;
                 $_SESSION['user'] = $u;
 
+                // Show the rules/legend intro once after login.
                 $_SESSION['intro_pending'] = true;
                 $_SESSION['seen_intro'] = false;
 
+                // Start with an empty session leaderboard for the run.
                 if (empty($_SESSION['leaderboard']) || !is_array($_SESSION['leaderboard'])) {
                     $_SESSION['leaderboard'] = [];
                 }
@@ -37,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = $authError ?? 'Invalid username or password.';
         }
     }
+}
 
 $queryError = filter_input(INPUT_GET, 'error', FILTER_SANITIZE_SPECIAL_CHARS);
 if ($queryError && is_string($queryError) && $queryError !== '') {
@@ -73,6 +77,8 @@ if ($queryError && is_string($queryError) && $queryError !== '') {
             <?php endif; ?>
 
             <form method="POST" action="login.php" class="form">
+                <input type="hidden" name="csrf_token" value="<?= dsh(dsh_csrf_token()) ?>">
+
                 <label class="label" for="username">Username</label>
                 <input
                     id="username"

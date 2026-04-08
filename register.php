@@ -12,12 +12,12 @@ if (!empty($_SESSION['logged_in']) && !empty($_SESSION['user'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $u = isset($_POST['username']) ? trim((string) $_POST['username']) : '';
-        $p = isset($_POST['password']) ? (string) $_POST['password'] : '';
-        $c = isset($_POST['confirm_password']) ? (string) $_POST['confirm_password'] : '';
-        $u = $u === '' ? null : $u;
-        $p = $p === '' ? null : $p;
-        $c = $c === '' ? null : $c;
+    if (!dsh_verify_csrf()) {
+        $error = 'Security token invalid. Please refresh and try again.';
+    } else {
+        $u = dsh_get_post_string('username', 24);
+        $p = dsh_get_post_string('password', 72);
+        $c = dsh_get_post_string('confirm_password', 72);
 
         if ($u === null || $p === null || $c === null) {
             $error = 'Please fill in all fields.';
@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = $regError ?? 'Registration failed. Please try again.';
         }
     }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,6 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
 
             <form method="POST" action="register.php" class="form">
+                <input type="hidden" name="csrf_token" value="<?= dsh(dsh_csrf_token()) ?>">
+
                 <label class="label" for="username">Username</label>
                 <input
                     id="username"
