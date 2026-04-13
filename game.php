@@ -160,6 +160,7 @@ $gameReady = !empty($_SESSION['game_start_time']) && empty($_SESSION['just_won']
     <?php // VS CPU: staged GET cpu_play after short delay (no client-side game logic). ?>
     <?php // VS CPU: staged GET cpu_play after short delay (no client-side game logic). ?>
     <?php // VS CPU: staged GET cpu_play after short delay (no client-side game logic). ?>
+    <?php // VS CPU: staged GET cpu_play after short delay (no client-side game logic). ?>
     <?php if ($cpuPending): ?>
         <meta http-equiv="refresh" content="2;url=game.php?cpu_play=1#turn-control">
     <?php endif; ?>
