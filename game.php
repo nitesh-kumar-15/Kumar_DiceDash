@@ -11,6 +11,14 @@ if (!isset($_SESSION['difficulty'])) {
 $startError = '';
 $turnControlAnchor = 'game.php#turn-control';
 
+// If we already finished a game, always send the user to the recap page.
+// This prevents the UI from showing "Start a new run" while session stats still show a completed game.
+// exception: when the user clicks "Play Again" we explicitly reset via `game.php?new=1`.
+$requestedNewRun = isset($_GET['new']) && (string) $_GET['new'] === '1';
+if (!empty($_SESSION['just_won']) && !$requestedNewRun) {
+    dsh_redirect('leaderboard.php');
+}
+
 // New run requested from leaderboard.
 if (isset($_GET['new']) && (string) $_GET['new'] === '1') {
     $key = (string) ($_SESSION['difficulty'] ?? 'standard');
