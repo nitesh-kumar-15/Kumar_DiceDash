@@ -227,8 +227,8 @@ body{
 .board-wrap{
     margin-top: 14px;
     display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 11px;
+    grid-template-columns: 1fr 320px;
+    gap: 14px;
     align-items: start;
 }
 @media (max-width: 980px){
