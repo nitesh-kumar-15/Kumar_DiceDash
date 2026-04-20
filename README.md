@@ -1,11 +1,11 @@
-# DiceDash (Project 2 — Topic 03: Adventures of the Dice)
+# DiceDash (Project 2: Topic 03: Adventures of the Dice)
 
 PHP + HTML5 + CSS3 + Scrum
 
 This project implements a Snakes & Ladders-style race to cell `100`, using **server-side PHP** for game logic and **PHP Sessions** for authentication and a temporary leaderboard.
 
 ## Live URL / CODD
-- Live app: `https://codd.cs.gsu.edu/~nkumar13/wp/pw/project2/index.php`
+- Live app deployed on CODD (accessible via GSU network only): `https://codd.cs.gsu.edu/~nkumar13/wp/pw/project2/index.php`
 - The app is deployable as a standard PHP site with no database setup required.
 
 ## Local run (MAMP / XAMPP)
