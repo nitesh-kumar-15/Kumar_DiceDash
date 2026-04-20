@@ -10,9 +10,7 @@ function dsh_get_user(): string
     return (string) ($_SESSION['user'] ?? '');
 }
 
-// feat(modes): two-player turn tracking (session turn_index + positions[])
-// feat(modes): two-player turn tracking (session turn_index + positions[])
-// feat(modes): two-player turn tracking (session turn_index + positions[])
+
 // feat(modes): two-player turn tracking (session turn_index + positions[])
 function dsh_get_mode(): string
 {
