@@ -51,3 +51,6 @@ See [`docs/RUBIX_PRIOR_WORK.md`](docs/RUBIX_PRIOR_WORK.md).
 
 ## Scrum evidence
 See [`docs/DEV_JOURNAL.md`](docs/DEV_JOURNAL.md).
+
+## AI Usage Disclosure
+AI tools were used in a supporting role during development, including brainstorming, troubleshooting, and preparing presentation materials.
